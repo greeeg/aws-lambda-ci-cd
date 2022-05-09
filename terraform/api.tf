@@ -5,7 +5,7 @@ data "archive_file" "api_code_archive" {
 }
 
 resource "aws_s3_bucket" "api_bucket" {
-  bucket        = "coucou33-api-bucket"
+  bucket        = "example-api-bucket"
   force_destroy = true
 }
 
@@ -24,7 +24,7 @@ resource "aws_s3_bucket_object" "api_code_archive" {
 }
 
 resource "aws_lambda_function" "api_lambda" {
-  function_name    = "coucou33-api"
+  function_name    = "example-api"
   role             = aws_iam_role.api_lambda_role.arn
   s3_bucket        = aws_s3_bucket.api_bucket.id
   s3_key           = aws_s3_bucket_object.api_code_archive.key
@@ -84,7 +84,7 @@ resource "aws_iam_role_policy" "lambda_policy" {
 }
 
 resource "aws_iam_role" "api_lambda_role" {
-  name = "coucou33-lambda-role"
+  name = "example-lambda-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -100,7 +100,7 @@ resource "aws_iam_role" "api_lambda_role" {
 }
 
 resource "aws_apigatewayv2_api" "api_gateway" {
-  name          = "coucou33-api-gateway"
+  name          = "example-api-gateway"
   protocol_type = "HTTP"
   tags          = {}
 }

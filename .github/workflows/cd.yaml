@@ -32,11 +32,15 @@ jobs:
       run:  zip ${{ github.run_id }}.zip bootstrap
 
     - name: Upload to S3
-      run: aws s3 cp ${{ github.run_id }}.zip s3://coucou33-api-bucket/${{ github.run_id }}.zip
+      run: aws s3 cp ${{ github.run_id }}.zip s3://example-api-bucket/${{ github.run_id }}.zip
 
     - name: Update lambda function code
-      run: aws lambda update-function-code --function-name coucou33-api --s3-bucket coucou33-api-bucket --s3-key ${{ github.run_id }}.zip
+      run: aws lambda update-function-code --function-name example-api --s3-bucket example-api-bucket --s3-key ${{ github.run_id }}.zip
 
-    - name: Release new lambda function version
-      run: aws lambda publish-version --function-name coucou33-api
+    - name: Sleep for 5 seconds
+      run: sleep 5s
+      shell: bash
+
+    - name: Release lambda function version
+      run: aws lambda publish-version --function-name example-api --description ${{ github.run_id }}
     

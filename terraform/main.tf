@@ -21,7 +21,5 @@ terraform {
 }
 
 provider "aws" {
-  profile             = "recontent"
-  region              = "us-east-1"
-  allowed_account_ids = ["525082702939"]
+  region = "us-east-1"
 }

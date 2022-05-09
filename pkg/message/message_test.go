@@ -6,7 +6,7 @@ import (
 
 func TestGreet(t *testing.T) {
 	actualString := Greet("Gopher")
-	expectedString := "Hey Gopher"
+	expectedString := "Hello Gopher"
 
 	if actualString != expectedString {
 		t.Errorf("Expected String(%s) is not same as"+

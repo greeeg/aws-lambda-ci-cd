@@ -29,10 +29,13 @@ jobs:
       run: make build
 
     - name: ZIP build
-      run:  zip bootstrap.zip bootstrap
+      run:  zip ${{ github.run_id }}.zip bootstrap
+
+    - name: Upload to S3
+      run: aws s3 cp ${{ github.run_id }}.zip s3://coucou33-api-bucket/${{ github.run_id }}.zip
 
     - name: Update lambda function code
-      run: aws lambda update-function-code --function-name coucou33-api --s3-bucket coucou33-api-bucket --zip-file fileb://bootstrap.zip
+      run: aws lambda update-function-code --function-name coucou33-api --s3-bucket recontent-api-bucket --s3-key ${{ github.run_id }}.zip
 
     - name: Release new lambda function version
       run: aws lambda publish-version --function-name coucou33-api

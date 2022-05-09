@@ -32,7 +32,7 @@ jobs:
       run:  zip bootstrap.zip bootstrap
 
     - name: Update lambda function code
-      run: aws lambda update-function-code --function-name coucou33-api --s3-bucket coucou33-api-bucket --s3-key bootstrap.zip
+      run: aws lambda update-function-code --function-name coucou33-api --s3-bucket coucou33-api-bucket --zip-file fileb://bootstrap.zip
 
     - name: Release new lambda function version
       run: aws lambda publish-version --function-name coucou33-api
